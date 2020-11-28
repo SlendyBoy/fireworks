@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
@@ -28,20 +28,21 @@
         function draw() 
         {
           $.globalCompositeOperation = 'source-over';
-          $.fillStyle = 'hsla(0,0%,0%,0.1)'; //Canvas Lightness, Alpha des trainées 
-          $.fillRect(0, 0, c.width, c.height); //Fill canvas rectangle
+          $.fillStyle = 'hsla(0,0%,0%,0.1)'; //Canvas Lightness, Alpha des trainées des fusées
+          $.fillRect(0, 0, c.width, c.height); //Fill canvas
 
-          var foo, i, j, r;
-          foo = Math.sin(t) * 1.5 * Math.PI; //Modifie la vitesse
-          for (i=0; i<400; ++i) //Pour chaque fusée
+          var speed, i, r;
+          speed = Math.sin(t) * 1.5 * Math.PI; //Modifie la vitesse
+          for (i=0; i<400; ++i) //NB de fusées, + y'a de fusées, + les premières vont vite
           {
-            r = 450 * Math.sin(i * foo); //Rayon
+            r = 450 * Math.sin(i * speed); //Rayon
             $.globalCompositeOperation = '';
             $.fillStyle = 'hsla(' + 50 + i + 50 +',2000%, 50%,1)'; //Colore les fusées et leurs trainées, lightness et alpha du dessin
             $.beginPath();
             $.arc(Math.sin(i) * r + (c.width / 2),  // Pour centrer
                   Math.cos(i) * r + (c.height / 2), // au milieu de la page
-                  5, 0, Math.PI * 2); //Modifie le diamètre des fusées
+                  5, 0, Math.PI * 2); //Modifie le diamètre des fusées (ici 5) (peut faire crash des pc si diamètre=taille écran(c'est du vécu))
+                                      //0: début angle / 2Pi: Fin angle
             $.fill();
 
           }
